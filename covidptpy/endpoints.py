@@ -9,5 +9,5 @@ REQUEST_PATHS = {
     "last_update":                  "https://covid19-api.vost.pt​/Requests​/get_last_update",
     "last_update_counties":         "https://covid19-api.vost.pt​/Requests​/get_last_update_counties",
     "last_update_specific_county":  "https://covid19-api.vost.pt​/Requests​/get_last_update_specific_county​/{county}",
-    "status":                       "​https://covid19-api.vost.pt/Requests​/get_status",
+    "status":                       "https://covid19-api.vost.pt/Requests/get_status",
 }
