@@ -7,3 +7,5 @@ class Status(Base):
         super().__init__(response_code)
         self.status_text = status_text
 
+    def __str__(self):
+        return self.status_text
