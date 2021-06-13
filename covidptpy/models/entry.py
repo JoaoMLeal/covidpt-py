@@ -1,11 +1,7 @@
-from covidptpy.models.base import Base
+class Entry:
 
-
-class Entry(Base):
-
-    def __init__(self, response_code, status_text):
-        super().__init__(response_code)
-        self.status_text = status_text
+    def __init__(self, json_data):
+        self.json_data = json_data
 
     def __str__(self):
-        return self.status_text
+        return str(self.json_data)

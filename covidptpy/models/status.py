@@ -1,10 +1,7 @@
-from covidptpy.models.base import Base
-
-
-class Status(Base):
+class Status:
 
     def __init__(self, response_code, status_text):
-        super().__init__(response_code)
+        self.response_code = response_code
         self.status_text = status_text
 
     def __str__(self):
