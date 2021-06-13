@@ -1,7 +1,6 @@
 import requests
 from .endpoints import REQUEST_PATHS
 from .models.status import *
-from .utils import today, yesterday, print_error
 
 
 def get_county_list():
