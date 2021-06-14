@@ -1,6 +1,7 @@
 import requests
 from .endpoints import REQUEST_PATHS
-from .models.status import *
+from .models.county import County, CountySet
+from .models.entry import Entry, EntrySet
 
 
 def get_county_list():
@@ -16,15 +17,18 @@ def get_entry_from_until(date_1, date_2):
     request = REQUEST_PATHS['entry_from_until'].format(date_1=date_1, date_2=date_2)
     response = requests.get(request)
     response.raise_for_status()
-    return response
+    return EntrySet(response.json())
 
 
 def get_entry(date):
-    """Returns the update of a specific date"""
+    """Returns the update of a specific date
+    :returns an object of type Entry with all the data"""
     request = REQUEST_PATHS['entry'].format(date=date)
     response = requests.get(request)
     response.raise_for_status()
-    return response
+
+    json_data = response.json()
+    return Entry(json_data)
 
 
 def get_entry_counties(date_1, date_2):
@@ -32,7 +36,8 @@ def get_entry_counties(date_1, date_2):
     request = REQUEST_PATHS['entry_counties'].format(date_1=date_1, date_2=date_2)
     response = requests.get(request)
     response.raise_for_status()
-    return response
+
+    return CountySet(response.json())
 
 
 def get_entry_county(date_1, date_2, county):
@@ -40,7 +45,7 @@ def get_entry_county(date_1, date_2, county):
     request = REQUEST_PATHS['entry_county'].format(date_1=date_1, date_2=date_2, county=county)
     response = requests.get(request)
     response.raise_for_status()
-    return response
+    return County(response.json())
 
 
 def get_full_dataset():
@@ -48,7 +53,7 @@ def get_full_dataset():
     request = REQUEST_PATHS['full_dataset']
     response = requests.get(request)
     response.raise_for_status()
-    return response
+    return EntrySet(response.json())
 
 
 def get_full_dataset_counties():
@@ -56,7 +61,7 @@ def get_full_dataset_counties():
     request = REQUEST_PATHS['full_dataset_counties']
     response = requests.get(request)
     response.raise_for_status()
-    return response
+    return CountySet(response.json())
 
 
 def get_last_update():
@@ -84,8 +89,9 @@ def get_last_update_specific_county(county):
 
 
 def get_status():
-    """Returns the status of the API"""
+    """Returns the status of the API
+    :returns a tuple in the form (status code, status text)"""
     request = REQUEST_PATHS['status']
     response = requests.get(request)
     response.raise_for_status()
-    return Status(response.status_code, response.json()['status'])
+    return response.status_code, response.json()['status']
